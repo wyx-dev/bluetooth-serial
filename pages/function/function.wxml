@@ -1,8 +1,10 @@
 <!--pages/function.wxml-->
-<view class="container">
-  <text>请选择功能</text>
-  <button class="button-sp-area" type="default" plain="true" bindtap="talk">聊天</button>
-  <button class="button-sp-area" type="default" plain="true" bindtap="button">按键</button>
-  <button class="button-sp-area" type="default" plain="true"bindtap="alarm">检测</button>
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="container">请选择功能</view>
+  <view class="button-sp-area">
+    <button  type="default"  bindtap="talk">聊天</button>
+    <button  type="default"  bindtap="button">按键</button>
+    <button  type="default"  bindtap="alarm">检测</button>
+  </view>
 </view>
 

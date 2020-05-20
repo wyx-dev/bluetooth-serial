@@ -4,7 +4,4 @@
   width: 300rpx;
   bottom: 30rpx;
 } */
-.button-sp-area{
-  margin: 0 auto;
-  width: 60%;
-}
+.button-sp-area{padding-top:15px;text-align:center}.weui-btn_mini{margin-right:4px}

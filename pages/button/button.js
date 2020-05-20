@@ -1,11 +1,19 @@
 // pages/button/button.js
+const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    inputText: '1',
+    inputText_ADD: 'SXMADDQ',
+    inputText_SET: 'SXMSETQ',
+    inputText_SUB: 'SXMSUBQ',
+
+    alarmTemp:"38.0",
+    targetTemp:"28.0",
+
+    setType: 'OFF',
+
     name: '',
     connectedDeviceId: '',
     services: {},
@@ -13,18 +21,52 @@ Page({
     connected: true
   },
 
+  bindInput_ADD: function (e) {
+    this.setData({
+      inputText_ADD: e.detail.value
+    })
+    console.log(e.detail.value)
+  },
+
+  bindInput_SET: function (e) {
+    this.setData({
+      inputText_SET: e.detail.value
+    })
+    console.log(e.detail.value)
+  },
+
+  bindInput_SUB: function (e) {
+    this.setData({
+      inputText_SUB: e.detail.value
+    })
+    console.log(e.detail.value)
+  },
+
  /**
   * 发送数据按钮回调函数
   */
 
-  send: function () {
+  send: function (e) {
     var that = this
+    var argument = "Hi"
     if (that.data.connected) {
-      var buffer = new ArrayBuffer(that.data.inputText.length)
+      switch(e.currentTarget.id)
+      {
+        case 1:
+          argument = that.data.inputText_ADD
+          break
+        case 2:
+          argument = that.data.inputText_SET
+          break
+        case 3:
+          argument = that.data.inputText_SUB
+          break
+      }
+      var buffer = new ArrayBuffer(e.currentTarget.id.length)
       var dataView = new Uint8Array(buffer)
       console.log(buffer)
-      for (var i = 0; i < that.data.inputText.length; i++) {
-        dataView[i] = that.data.inputText.charCodeAt(i)
+      for (var i = 0; i < e.currentTarget.id.length; i++) {
+        dataView[i] = e.currentTarget.id.charCodeAt(i)
         console.log(dataView[i],'dataView[i]')
       }
       wx.writeBLECharacteristicValue({
@@ -93,12 +135,12 @@ Page({
             })
           },
           fail: function (res) {
-            console.log('failllllll',res)
+            console.log('fail',res)
           }
         })
       },
       fail: function (res) {
-        console.log('failllllll',res)
+        console.log('fail',res)
       }
     })
     wx.onBLEConnectionStateChange(function (res) {

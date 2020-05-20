@@ -1,4 +1,2 @@
 /* pages/button/button.wxss */
-.mini-btn{
-  margin-right: 10rpx;
-}
+.button-sp-area{padding-top:15px;text-align:center}.weui-btn_mini{margin-right:4px}

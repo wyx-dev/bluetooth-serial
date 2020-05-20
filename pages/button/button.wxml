@@ -3,7 +3,28 @@
   <text style="font-size:medium;word-break:break-all">设备名称：{{name}}</text>
   <text style="font-size:x-small;color:gray;word-break:break-all">设备ID：{{connectedDeviceId}}</text>
   <text style="font-size:x-small;color:gray">状态：{{connected?"已连接":"已断开"}}</text>
-  <button class="mini-btn" type="primary" size="mini">按钮</button>
-  <button class="mini-btn" type="default" size="mini">按钮</button>
-  <button class="mini-btn" type="warn" size="mini">按钮</button>
+
+  <text style="font-size:medium;word-break:break-all">.</text>
+  <text style="font-size:medium;word-break:break-all">.</text>
+  <text style="font-size:medium;word-break:break-all">.</text>
+  <text style="font-size:medium;word-break:break-all">.</text>
+
+  <view class="button-sp-area">
+    <input class="input" value="{{inputText_ADD}}" bindinput="bindInput_ADD" maxlength="20"/>
+    <text style="font-size:medium;word-break:break-all">.</text>
+    <a class="weui-btn  weui-btn_primary" id="{{inputText_ADD}}" bindtap="send" >ADD</a>
+
+    <text style="font-size:medium;word-break:break-all">.</text>
+
+    <input class="input" value="{{inputText_SET}}" bindinput="bindInput_SET" maxlength="20"/>
+    <text style="font-size:medium;word-break:break-all">.</text>
+    <a class="weui-btn  weui-btn_default" id="{{inputText_SET}}" bindtap="send">SET</a>
+
+    <text style="font-size:medium;word-break:break-all">.</text>
+
+    <input class="input" value="{{inputText_SUB}}" bindinput="bindInput_SUB" maxlength="20"/>
+    <text style="font-size:medium;word-break:break-all">.</text>
+    <a class="weui-btn  weui-btn_warn" id="{{inputText_SUB}}" bindtap="send">SUB</a>
+  </view>
+  <text class="justify-content: space-between;" style="font-size:x-small;color:gray">按键上方为按键的发送值,可编辑</text>      
 </view>

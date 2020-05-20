@@ -1,0 +1,10 @@
+/* pages/function.wxss */
+/* .button {
+  position: fixed;
+  width: 300rpx;
+  bottom: 30rpx;
+} */
+.button-sp-area{
+  margin: 0 auto;
+  width: 60%;
+}

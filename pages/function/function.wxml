@@ -1,0 +1,8 @@
+<!--pages/function.wxml-->
+<view class="container">
+  <text>请选择功能</text>
+  <button class="button-sp-area" type="default" plain="true" bindtap="talk">聊天</button>
+  <button class="button-sp-area" type="default" plain="true" bindtap="button">按键</button>
+  <button class="button-sp-area" type="default" plain="true"bindtap="alarm">检测</button>
+</view>
+

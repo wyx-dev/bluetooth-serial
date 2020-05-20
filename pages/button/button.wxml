@@ -1,0 +1,9 @@
+<!--pages/button/button.wxml-->
+<view class="container">
+  <text style="font-size:medium;word-break:break-all">设备名称：{{name}}</text>
+  <text style="font-size:x-small;color:gray;word-break:break-all">设备ID：{{connectedDeviceId}}</text>
+  <text style="font-size:x-small;color:gray">状态：{{connected?"已连接":"已断开"}}</text>
+  <button class="mini-btn" type="primary" size="mini">按钮</button>
+  <button class="mini-btn" type="default" size="mini">按钮</button>
+  <button class="mini-btn" type="warn" size="mini">按钮</button>
+</view>

@@ -1,0 +1,4 @@
+/* pages/button/button.wxss */
+.mini-btn{
+  margin-right: 10rpx;
+}

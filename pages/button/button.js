@@ -149,6 +149,29 @@ Page({
         connected: res.connected
       })
     })
+    /**
+     * 蓝牙接收回调函数
+    */
+    wx.onBLECharacteristicValueChange(function (res) {
+      var receiveText = app.buf2string(res.value)
+      console.log(receiveText)
+      if(receiveText.charAt(0) == 'A')
+      {
+        var arr = receiveText.substr(1, (receiveText.length-1)).split(";")
+        console.log(arr)
+        that.setData({
+          targetTemp : arr[0],
+          alarmTemp : arr[1]
+        })
+      }
+      else
+      {
+        var str = receiveText.substr(1, (receiveText.length-1))
+        that.setData({
+          setType : str
+        })
+      }
+    })
   },
 
   /**

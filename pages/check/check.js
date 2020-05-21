@@ -1,100 +1,16 @@
-// pages/button/button.js
+// pages/check/check.js
 const app = getApp()
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    inputText_ADD: 'SXMADDQ',
-    inputText_SET: 'SXMSETQ',
-    inputText_SUB: 'SXMSUBQ',
-
-    alarmTemp:"38.0",
-    targetTemp:"28.0",
-    currentTemp:"00.0",
-
-    setType: 'OFF',
-
     name: '',
     connectedDeviceId: '',
     services: {},
     characteristics: {},
     connected: true
-  },
-
-  bindInput_ADD: function (e) {
-    this.setData({
-      inputText_ADD: e.detail.value
-    })
-    console.log(e.detail.value)
-  },
-
-  bindInput_SET: function (e) {
-    this.setData({
-      inputText_SET: e.detail.value
-    })
-    console.log(e.detail.value)
-  },
-
-  bindInput_SUB: function (e) {
-    this.setData({
-      inputText_SUB: e.detail.value
-    })
-    console.log(e.detail.value)
-  },
-
- /**
-  * ADD SUB SET按钮回调函数
-  */
-
-  send: function (e) {
-    var that = this
-    var argument = "Hi"
-    if (that.data.connected) {
-      switch(e.currentTarget.id)
-      {
-        case 1:
-          argument = that.data.inputText_ADD
-          break
-        case 2:
-          argument = that.data.inputText_SET
-          break
-        case 3:
-          argument = that.data.inputText_SUB
-          break
-      }
-      var buffer = new ArrayBuffer(e.currentTarget.id.length)
-      var dataView = new Uint8Array(buffer)
-      console.log(buffer)
-      for (var i = 0; i < e.currentTarget.id.length; i++) {
-        dataView[i] = e.currentTarget.id.charCodeAt(i)
-        console.log(dataView[i],'dataView[i]')
-      }
-      wx.writeBLECharacteristicValue({
-        deviceId: that.data.connectedDeviceId,
-        serviceId: that.data.services[2].uuid,//此处用特征值为FFE0开头的UUID才可通信.通过小程序调试可知那个特征值支持notify 或者 indicate
-        characteristicId: that.data.characteristics[0].uuid,
-        value: buffer,
-        success: function (res) {
-          console.log('发送成功')
-        },
-        fail: function (res) {
-          console.log('发送失败',res)
-        }
-      })
-    }
-    else {
-      wx.showModal({
-        title: '提示',
-        content: '蓝牙已断开',
-        showCancel: false,
-        success: function (res) {
-          that.setData({
-            searching: false
-          })
-        }
-      })
-    }
   },
 
   /**
@@ -107,12 +23,19 @@ Page({
       name: options.name,
       connectedDeviceId: options.connectedDeviceId
     })
+    /**
+     * 获取蓝牙设备所有服务(service)。
+    */
     wx.getBLEDeviceServices({
       deviceId: that.data.connectedDeviceId,
       success: function (res) {
         that.setData({
           services: res.services
         })
+
+        /**
+         * 获取蓝牙设备某个服务中所有特征值(characteristic)。
+        */
         wx.getBLEDeviceCharacteristics({
           deviceId: options.connectedDeviceId,
           serviceId: res.services[2].uuid,//此处用特征值为FFE0开头的UUID才可通信.通过小程序调试可知那个特征值支持notify 或者 indicate
@@ -121,6 +44,12 @@ Page({
             that.setData({
               characteristics: res.characteristics
             })
+
+            /**
+             * 启用低功耗蓝牙设备特征值变化时的 notify 功能，订阅特征值。注意：必须设备的特征值支持 notify 或者 indicate 才可以成功调用。
+
+另外，必须先启用 notifyBLECharacteristicValueChange 才能监听到设备 characteristicValueChange 事件
+            */
             wx.notifyBLECharacteristicValueChange({
               state: true,
               deviceId: options.connectedDeviceId,
@@ -144,11 +73,23 @@ Page({
         console.log('fail',res)
       }
     })
+ 
+    /**
+     * 监听低功耗蓝牙连接状态的改变事件。包括开发者主动连接或断开连接，设备丢失，连接异常断开等等
+    */
     wx.onBLEConnectionStateChange(function (res) {
       console.log(res.connected)
+      
       that.setData({
         connected: res.connected
       })
+      
+      if(!res.connected)
+      {
+        wx.navigateTo({
+          url: '../search/search'
+        })
+      }
     })
     /**
      * 蓝牙接收回调函数
@@ -156,30 +97,6 @@ Page({
     wx.onBLECharacteristicValueChange(function (res) {
       var receiveText = app.buf2string(res.value)
       console.log(receiveText)
-
-      switch(receiveText.charAt(0))
-      {
-        case 'A':
-          var arr = receiveText.substr(1, (receiveText.length-1)).split(";")
-          console.log(arr)
-          that.setData({
-            targetTemp : arr[0],
-            alarmTemp : arr[1]
-          })
-          break
-        case 'B':
-          var str = receiveText.substr(1, (receiveText.length-1))
-          that.setData({
-            setType : str
-          })
-          break
-        case 'C':
-          var str = receiveText.substr(1, 4)
-          that.setData({
-            currentTemp : str
-          })
-          break
-      }
     })
   },
 

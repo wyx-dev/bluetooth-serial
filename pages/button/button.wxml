@@ -4,6 +4,7 @@
   <text style="font-size:x-small;color:gray;word-break:break-all">设备ID：{{connectedDeviceId}}</text>
   <text style="font-size:x-small;color:gray">状态：{{connected?"已连接":"已断开"}}</text>
 
+  <text style="font-size:30px;word-break:break-all">当前温度值:{{currentTemp}}</text>
   <text style="font-size:20px;word-break:break-all;color:red;">报警阀值:{{alarmTemp}}</text>
   <text style="font-size:20px;word-break:break-all;color:green;">目标温度:{{targetTemp}}</text>
   <text style="font-size:30px;word-break:break-all">正在设置:{{setType}}</text> 

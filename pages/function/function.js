@@ -34,7 +34,10 @@ Page({
    * 报警函数
    */
   alarm :function(){
-    
+    console.log('wwwwwwwwwwwwwwwalarm')
+    wx.navigateTo({
+      url: '../check/check?connectedDeviceId=' + this.data.connectedDeviceId + '&name=' + this.data.name
+    })
   },
 
   /**

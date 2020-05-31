@@ -16,6 +16,6 @@ App({
     //console.log(this.globalData.SystemInfo)
   },
   globalData: {
-    SystemInfo: {}
+    SystemInfo: {},
   }
 })

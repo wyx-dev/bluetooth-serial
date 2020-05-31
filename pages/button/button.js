@@ -9,8 +9,6 @@ Page({
     inputText_SET: 'SXMSETQ',
     inputText_SUB: 'SXMSUBQ',
 
-    alarmTemp:"38.0",
-    targetTemp:"28.0",
     currentTemp:"00.0",
 
     setType: 'OFF',
@@ -51,18 +49,18 @@ Page({
     var that = this
     var argument = "Hi"
     if (that.data.connected) {
-      switch(e.currentTarget.id)
-      {
-        case 1:
-          argument = that.data.inputText_ADD
-          break
-        case 2:
-          argument = that.data.inputText_SET
-          break
-        case 3:
-          argument = that.data.inputText_SUB
-          break
-      }
+      // switch(e.currentTarget.id)
+      // {
+      //   case 1:
+      //     argument = that.data.inputText_ADD
+      //     break
+      //   case 2:
+      //     argument = that.data.inputText_SET
+      //     break
+      //   case 3:
+      //     argument = that.data.inputText_SUB
+      //     break
+      // }
       var buffer = new ArrayBuffer(e.currentTarget.id.length)
       var dataView = new Uint8Array(buffer)
       console.log(buffer)
@@ -101,6 +99,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     var that = this
     console.log(options)
     that.setData({
@@ -149,6 +148,12 @@ Page({
       that.setData({
         connected: res.connected
       })
+      if(!res.connected)
+      {
+        wx.navigateTo({
+          url: '../search/search'
+        })
+      }
     })
     /**
      * 蓝牙接收回调函数

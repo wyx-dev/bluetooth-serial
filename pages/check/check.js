@@ -7,6 +7,7 @@ Page({
    */
   data: {
     alarmFlag: false,
+    targetFlag: false,
     stop: false,
 
 
@@ -99,18 +100,6 @@ Page({
       console.log(res.errMsg)
       console.log(res.errCode)
     })
-    
-    // this.data.innerAudioContext.loop = true
-    // this.data.innerAudioContext.src = 'http://downsc.chinaz.net/Files/DownLoad/sound1/201810/10686.mp3'
-    // this.data.innerAudioContext.onPlay(() => {
-    //   console.log('开始播放')
-    // })
-    // this.data.innerAudioContext.onError((res) => {
-    //   console.log(res.errMsg)
-    //   console.log(res.errCode)
-    // })
-
-    // this.data.innerAudioContext.play()
 
     /**
      * 获取蓝牙设备所有服务(service)。
@@ -203,6 +192,16 @@ Page({
         console.log('正常~~~')
         that.setData({
           alarmFlag : false
+        })
+        break
+      case '2':
+        that.setData({
+          targetFlag : true
+        })
+        break
+      case '3':
+        that.setData({
+          targetFlag : false
         })
         break
       case 'A':

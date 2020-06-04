@@ -1,12 +1,13 @@
 <!--pages/check/check.wxml-->
 <view class="container">
   <text style="font-size:medium;word-break:break-all">设备名称：{{name}}</text>
-  <text style="font-size:x-small;color:gray;word-break:break-all">设备ID：{{connectedDeviceId}}</text>
-  <text style="font-size:x-small;color:gray">状态：{{connected?"已连接":"已断开"}}</text>
-  <text style="font-size:30px;word-break:break-all">当前温度值:{{currentTmp}}</text>
-  <text style="font-size:20px;word-break:break-all;color:red;">报警阀值:{{alarmTemp}}</text>
-  <text style="font-size:20px;word-break:break-all;color:green;">目标温度:{{targetTemp}}</text>
-  <text style="font-size:20px;word-break:break-all;">{{alarmFlag?"报警:超过报警阀值!!!":"正常工作"}}</text> 
+  <text style="font-size:x-small;word-break:break-all">设备ID：{{connectedDeviceId}}</text>
+  <text style="font-size:x-small;">状态：{{connected?"已连接":"已断开"}}</text>
+  <text style="font-size:30px;color:red;word-break:break-all">当前温度值:{{currentTmp}}</text>
+  <text style="font-size:20px;word-break:break-all;">报警阀值:{{alarmTemp}}</text>
+  <text style="font-size:20px;word-break:break-all;">目标温度:{{targetTemp}}</text>
+  <text style="font-size:20px;color:green;word-break:break-all;">{{alarmFlag?"报警:超过报警阀值!!!":"正常工作"}}</text>
+  <text style="font-size:20px;color:green;word-break:break-all;">{{targetFlag?"已达到目标温度!":"调整温度中..."}}</text> 
 </view>
-<a class="weui-btn  weui-btn_warn;" id="SXMTMPQ" bindtap="seeTemp">查看设置温度</a>
-<a class="weui-btn  weui-btn_warn;disabled:true" bindtap="stop">{{stop?"开始报警":"停止报警"}}</a>
+<a class="weui-btn  weui-btn_default" id="SXMTMPQ" bindtap="seeTemp">查看设置温度</a>
+<a class="weui-btn  weui-btn_default" bindtap="stop">{{stop?"开始报警":"停止报警"}}</a>
